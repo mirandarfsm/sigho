@@ -1,0 +1,34 @@
+//gcc -Wall -g -o tutorial main.c `pkg-config --cflags --libs gtk+-2.0` -export-dynamic
+
+#include <stdlib.h>
+#include <gtk/gtk.h>
+
+void on_wCadastroUsuario_destroy(GtkObject *object, gpointer user_data){
+	gtk_main_quit ();
+}
+
+void on_btCancelar_clicked(GtkObject *object, gpointer user_data){
+	return 0;
+}
+ 
+int cadastroUsuario()
+{
+	int argc;
+	char *argv;
+    GtkBuilder      *builder;
+    GtkWidget       *window;
+ 
+    gtk_init (&argc, &argv);
+ 
+    builder = gtk_builder_new ();
+    gtk_builder_add_from_file (builder, "cadastroUsuario.glade", NULL); //Carrega as informações do projeto glade para o GtkBuilder
+    window = GTK_WIDGET(gtk_builder_get_object (builder, "wCadastroUsuario"));   //Retorna o objeto Window, para mostrá-lo mais tarde
+    gtk_builder_connect_signals (builder, NULL); //Conecta todos os eventos dentro do projeto do glade.
+ 
+    g_object_unref (G_OBJECT (builder)); //Exclui o GtkBuilder, pois não iremos mais usá-lo nesse exemplo.
+ 
+    gtk_widget_show_all(window);   //Mostra a janela com seus objetos
+    gtk_main ();
+ 
+    return 0;
+}

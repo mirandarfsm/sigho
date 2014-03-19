@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <libpq-fe.h>
+
+PGconn *conn = NULL;
+
+void verificaConexao(){
+	    /*realiza a conexão*/
+	
+	    conn = PQconnectdb("host=localhost dbname=sigho user=postgres password=Password01");
+	    if(PQstatus(conn) != CONNECTION_OK){
+	        printf("Falha na conexão. Erro: %s", PQerrorMessage(conn));
+	        PQfinish(conn);
+	    }
+	
+
+}
